@@ -24,10 +24,10 @@ public class TestIndividual extends A_Individual {
 	public double Evaluate() {
 		
 		if ( !evaluated ) {
-			double f0 = ((DoubleData)features[0].type).value;
-			double f1 = ((DoubleData)features[1].type).value;
-			String f2 = ((StringData)features[2].type).value;
-			int f3 = ((IntData)features[3].type).value;
+			double f0 = ((DoubleData)features[0].data[0]).value;
+			double f1 = ((DoubleData)features[1].data[0]).value;
+			String f2 = ((StringData)features[2].data[0]).value;
+			int f3 = ((IntData)features[3].data[0]).value;
 
 			
 			int temp = ((f3+3) % 10);
