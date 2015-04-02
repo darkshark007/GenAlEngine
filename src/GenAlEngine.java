@@ -1,8 +1,10 @@
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.PriorityQueue;
 import java.util.Random;
 
+import Config.Config;
 import Population.*;
 import Population.Features.Feature;
 
@@ -10,6 +12,7 @@ import Population.Features.Feature;
 public class GenAlEngine {
 
 	static Random r;
+	static Config conf;
 	
 	public static void main(String[] args) {
 		
@@ -19,8 +22,10 @@ public class GenAlEngine {
 		String type = "KnapsackIndividual";
 		//String type = "TestIndividual";
 		Constructor<?> ctor = null;
+		Class<?> cType;
 		try {
-			ctor = Class.forName("Population."+type).getConstructor();
+			cType = Class.forName("Population."+type);
+			ctor = cType.getConstructor();
 		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalArgumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -28,24 +33,36 @@ public class GenAlEngine {
 		}
 
 		
-		// .===============================================.
-		// |     Set up the random number generator(s)     |
-		// '==============================================='
-		r = new Random(50);
-		Feature.setRNG(r);
-		A_Individual.setRNG(r);
-		
-
 		// .================================.
 		// |     Parse the Config setup     |
 		// '================================'
-
+		//*
+		try {
+			conf = (Config)cType.getMethod("getConfig").invoke(null);
+		} catch (IllegalAccessException | 
+				 IllegalArgumentException | 
+				 InvocationTargetException | 
+				 NoSuchMethodException | 
+				 SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return;
+		}
+		/* */
+		
+		// .===============================================.
+		// |     Set up the random number generator(s)     |
+		// '==============================================='
+		r = new Random(conf.SEED);
+		Feature.setRNG(r);
+		A_Individual.setRNG(r);
+		
 		
 		// .====================================.
 		// |     Create the base population     |
 		// '===================================='
 		System.out.println("Original Generation:");
-		A_Individual[] Pop = new A_Individual[50];
+		A_Individual[] Pop = new A_Individual[conf.POPULATION_BASE];
 		PriorityQueue<A_Individual> q = new PriorityQueue<A_Individual>();
 		for ( int i = 0; i < Pop.length; i++ ) {
 
@@ -63,7 +80,7 @@ public class GenAlEngine {
 		}
 		
 		
-		for ( int numGens = 0; numGens < 2000; numGens++ ) {
+		for ( int numGens = 0; numGens < conf.GENERATIONS_MAX; numGens++ ) {
 
 			System.out.println("Generation "+numGens);
 			A_Individual[] Pop2 = new A_Individual[Pop.length];
@@ -77,8 +94,8 @@ public class GenAlEngine {
 				//System.out.println("Crossed: "+Pop2[i+1]);
 				Pop2[i+1] = Pop2[i].Cross(Pop2[i+1]);
 				
-				Pop2[i].Mutate(0.4, 0.25);
-				Pop2[i+1].Mutate(0.4, 0.25);
+				Pop2[i].Mutate(conf.MUTATION_BASE_CHANCE, conf.MUTATION_BASE_AMOUNT);
+				Pop2[i+1].Mutate(conf.MUTATION_BASE_CHANCE, conf.MUTATION_BASE_AMOUNT);
 				
 				q2.add(Pop2[i]);
 				System.out.println(Pop2[i]);						
@@ -89,8 +106,6 @@ public class GenAlEngine {
 			Pop = Pop2;
 			q = q2;
 		}
-		
-		
 		
 	}
 	

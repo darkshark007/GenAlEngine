@@ -1,5 +1,6 @@
 package Population;
 
+import Config.Config;
 import Population.Features.*;
 
 public class TestIndividual extends A_Individual {
@@ -39,5 +40,16 @@ public class TestIndividual extends A_Individual {
 			}
 		}
 		return value;
+	}
+	
+	public static Config getConfig() {
+		Config ret = new Config();
+		
+		ret.GENERATIONS_MAX = 2000;
+		ret.MUTATION_BASE_CHANCE = 0.40;
+		ret.MUTATION_BASE_AMOUNT = 0.25;
+		ret.POPULATION_BASE = 50;
+		
+		return ret;
 	}
 }

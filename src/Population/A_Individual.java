@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Random;
 
+import Config.Config;
 import Population.Features.Feature;
 
 
@@ -97,4 +98,9 @@ public class A_Individual implements I_Individual, Comparable<A_Individual> {
 	public static void setRNG(Random in) {
 		r = in;
 	}
+	
+	public static Config getConfig() {
+		throw(new UnsupportedOperationException("Not Implemented"));
+	}
+	
 }

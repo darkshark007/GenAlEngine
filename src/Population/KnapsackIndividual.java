@@ -1,11 +1,12 @@
 package Population;
 
+import Config.Config;
 import Population.Features.*;
 
 public class KnapsackIndividual extends A_Individual {
 	
 	int KnapsackSize = 125;
-	int totalItems = 16;
+	int totalItems = 21;
 	int[] KnapsackItemWeights = {
 			5,
 			10,
@@ -23,6 +24,11 @@ public class KnapsackIndividual extends A_Individual {
 			110,
 			20,
 			42,
+			10,
+			50,
+			1,
+			2,
+			5,
 	};
 	int[] KnapsackItemValues = {
 			5,
@@ -41,6 +47,11 @@ public class KnapsackIndividual extends A_Individual {
 			120,
 			200,
 			84,
+			30,
+			250,
+			5,
+			2,
+			1,
 	};
 	
 	public KnapsackIndividual() {
@@ -78,5 +89,17 @@ public class KnapsackIndividual extends A_Individual {
 			}
 		}
 		return value;
+	}
+
+	
+	public static Config getConfig() {
+		Config ret = new Config();
+		
+		ret.GENERATIONS_MAX = 2000;
+		ret.MUTATION_BASE_CHANCE = 0.40;
+		ret.MUTATION_BASE_AMOUNT = 0.10;
+		ret.POPULATION_BASE = 100;
+		
+		return ret;
 	}
 }
