@@ -7,9 +7,9 @@ public class Feature {
 	static Random r;
 
 	String name;
-	public FeatureType type;
+	public FeatureData type;
 	
-	public Feature(String n, FeatureType t) {
+	public Feature(String n, FeatureData t) {
 		name = n;
 		type = t;
 	}

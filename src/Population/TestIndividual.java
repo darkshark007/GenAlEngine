@@ -12,10 +12,10 @@ public class TestIndividual extends A_Individual {
 	public TestIndividual() {
 		features = new Feature[4];
 		
-		features[0] = new Feature("Feature #1",new DoubleFeature(0,10));
-		features[1] = new Feature("Feature #2",new DoubleFeature(0.5,100.5));
-		features[2] = new Feature("Feature #3",new StringFeature(range));
-		features[3] = new Feature("Feature #4",new IntFeature(0,10));
+		features[0] = new Feature("Feature #1",new DoubleData(0,10));
+		features[1] = new Feature("Feature #2",new DoubleData(0.5,100.5));
+		features[2] = new Feature("Feature #3",new StringData(range));
+		features[3] = new Feature("Feature #4",new IntData(0,10));
 		
 		Init();
 	}
@@ -24,10 +24,10 @@ public class TestIndividual extends A_Individual {
 	public double Evaluate() {
 		
 		if ( !evaluated ) {
-			double f0 = ((DoubleFeature)features[0].type).value;
-			double f1 = ((DoubleFeature)features[1].type).value;
-			String f2 = ((StringFeature)features[2].type).value;
-			int f3 = ((IntFeature)features[3].type).value;
+			double f0 = ((DoubleData)features[0].type).value;
+			double f1 = ((DoubleData)features[1].type).value;
+			String f2 = ((StringData)features[2].type).value;
+			int f3 = ((IntData)features[3].type).value;
 
 			
 			int temp = ((f3+3) % 10);

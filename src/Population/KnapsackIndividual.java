@@ -47,7 +47,7 @@ public class KnapsackIndividual extends A_Individual {
 		features = new Feature[totalItems];
 		
 		for ( int i = 0; i < totalItems; i++ ) {
-			features[i] = new Feature("Item #"+(i+1),new BooleanFeature());			
+			features[i] = new Feature("Item #"+(i+1),new BooleanData());			
 		}
 		
 		Init();
@@ -63,7 +63,7 @@ public class KnapsackIndividual extends A_Individual {
 			int totalValue = 0;
 			boolean[] f = new boolean[totalItems];
 			for ( int i = 0; i < totalItems; i++ ) {
-				f[i] = ((BooleanFeature)features[i].type).value;
+				f[i] = ((BooleanData)features[i].type).value;
 				if ( f[i] ) {
 					totalWeight += KnapsackItemWeights[i];
 					totalValue += KnapsackItemValues[i];
